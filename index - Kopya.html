@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Global Investor</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#050b14;
+    color:#f5f7fb;
+}
+
+button,input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    max-width:1500px;
+    margin:auto;
+    padding:22px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.logo{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00e676,#008f62);
+    display:grid;
+    place-items:center;
+    font-size:25px;
+}
+
+.logo h1{
+    font-size:23px;
+}
+
+.logo p{
+    color:#728198;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.round{
+    background:#0e1928;
+    border:1px solid #203148;
+    padding:11px 17px;
+    border-radius:10px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:#0c1625;
+    border:1px solid #1a2a3e;
+    border-radius:15px;
+    padding:16px;
+}
+
+.stat-title{
+    color:#75849a;
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.green{color:#00df82}
+.red{color:#ff596b}
+.yellow{color:#ffc857}
+.blue{color:#5fa5ff}
+
+/* MAIN */
+
+.main{
+    display:grid;
+    grid-template-columns:1.55fr 1fr;
+    gap:18px;
+}
+
+.panel{
+    background:#0c1625;
+    border:1px solid #1a2a3e;
+    border-radius:17px;
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.title h2{
+    font-size:17px;
+}
+
+/* COUNTRIES */
+
+.country-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+}
+
+.country{
+    background:#101d2e;
+    border:1px solid #21344c;
+    padding:13px 8px;
+    border-radius:11px;
+    text-align:center;
+    transition:.2s;
+}
+
+.country:hover,
+.country.active{
+    border-color:#00d982;
+    background:#12253a;
+}
+
+.flag{
+    font-size:25px;
+}
+
+.country-name{
+    font-weight:bold;
+    margin-top:6px;
+    font-size:12px;
+}
+
+.country-info{
+    color:#718097;
+    font-size:10px;
+    margin-top:4px;
+}
+
+/* COUNTRY FILTER */
+
+.filter{
+    display:flex;
+    gap:7px;
+    overflow:auto;
+    padding-bottom:4px;
+}
+
+.filter button{
+    flex:none;
+    border:1px solid #263a53;
+    background:#101e30;
+    color:#a4b0c0;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:11px;
+}
+
+.filter button.active{
+    background:#00d982;
+    color:#03140d;
+    border-color:#00d982;
+    font-weight:bold;
+}
+
+/* CRISIS */
+
+.crisis{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,74,93,.14),
+            rgba(255,200,87,.04)
+        );
+    border:1px solid #4b303b;
+    border-radius:13px;
+    padding:17px;
+}
+
+.crisis-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.tag{
+    display:inline-block;
+    background:#25364c;
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.risk{
+    color:#ff6877;
+    background:#35222b;
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.crisis h3{
+    font-size:16px;
+    margin-top:10px;
+}
+
+.crisis p{
+    color:#9aa7b8;
+    line-height:1.55;
+    font-size:12px;
+    margin-top:7px;
+}
+
+.affected{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:12px;
+}
+
+.affected span{
+    background:#17273b;
+    color:#9aa9bc;
+    padding:6px 8px;
+    border-radius:6px;
+    font-size:10px;
+}
+
+/* STOCKS */
+
+.stock-list{
+    display:grid;
+    gap:8px;
+}
+
+.stock{
+    display:grid;
+    grid-template-columns:1.5fr .8fr .7fr .8fr auto;
+    align-items:center;
+    gap:10px;
+    background:#101e30;
+    border:1px solid #1e3048;
+    padding:13px;
+    border-radius:11px;
+    transition:.2s;
+}
+
+.stock:hover,
+.stock.active{
+    border-color:#00d982;
+    background:#12253a;
+}
+
+.stock-company{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.stock-logo{
+    width:36px;
+    height:36px;
+    border-radius:9px;
+    display:grid;
+    place-items:center;
+    background:#172941;
+    font-size:18px;
+}
+
+.stock-name{
+    font-weight:bold;
+    font-size:13px;
+}
+
+.stock-code{
+    color:#718097;
+    font-size:10px;
+    margin-top:3px;
+}
+
+.price{
+    font-weight:bold;
+}
+
+.change{
+    font-size:11px;
+}
+
+.trade{
+    border:0;
+    background:#00d982;
+    color:#03140d;
+    padding:8px 11px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+/* NEWS */
+
+.news-list{
+    display:grid;
+    gap:10px;
+}
+
+.news{
+    background:#101e30;
+    border:1px solid #21354e;
+    border-left:4px solid #5865f2;
+    border-radius:11px;
+    padding:14px;
+}
+
+.news.crisis{
+    border-left-color:#ff5365;
+}
+
+.news.company{
+    border-left-color:#00df82;
+}
+
+.news.spec{
+    border-left-color:#ffc857;
+}
+
+.news-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.news-source{
+    color:#718097;
+    font-size:10px;
+}
+
+.news h3{
+    font-size:14px;
+    margin-top:9px;
+}
+
+.news p{
+    color:#99a6b8;
+    font-size:12px;
+    line-height:1.5;
+    margin-top:6px;
+}
+
+.news-bottom{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    font-size:10px;
+}
+
+/* CHART */
+
+.chart{
+    height:280px;
+}
+
+canvas{
+    width:100%;
+    height:100%;
+}
+
+/* TRADE */
+
+.trade-box{
+    background:#101e30;
+    border-radius:13px;
+    padding:16px;
+}
+
+.selected{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.selected-price{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.buy-info{
+    background:#07121e;
+    border:1px solid #20354d;
+    border-radius:9px;
+    padding:11px;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:9px;
+}
+
+.input-row{
+    display:flex;
+    gap:7px;
+}
+
+input{
+    flex:1;
+    background:#07111d;
+    color:white;
+    border:1px solid #2a405a;
+    border-radius:8px;
+    padding:11px;
+    outline:none;
+}
+
+.action{
+    border:0;
+    padding:11px 17px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.buy{
+    background:#00d982;
+    color:#03140d;
+}
+
+.sell{
+    background:#ff5264;
+    color:white;
+}
+
+.max{
+    width:100%;
+    border:0;
+    margin-top:7px;
+    padding:9px;
+    border-radius:8px;
+    background:#243951;
+    color:#fff;
+}
+
+/* PORTFOLIO */
+
+.portfolio{
+    display:grid;
+    gap:8px;
+}
+
+.portfolio-item{
+    background:#101e30;
+    border-radius:10px;
+    padding:13px;
+}
+
+.port-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.port-bottom{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+    color:#75849a;
+    font-size:10px;
+}
+
+.empty{
+    color:#6e7d92;
+    text-align:center;
+    padding:20px;
+}
+
+/* STATUS */
+
+.status{
+    background:#101e30;
+    border:1px solid #1d3048;
+    padding:11px;
+    border-radius:9px;
+    color:#8b99aa;
+    font-size:11px;
+    margin-bottom:9px;
+}
+
+/* NEXT */
+
+.next{
+    width:100%;
+    border:0;
+    background:#5865f2;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.next:hover{
+    background:#6b76ff;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.84);
+    display:none;
+    place-items:center;
+    z-index:50;
+}
+
+.modal.show{
+    display:grid;
+}
+
+.modal-box{
+    width:min(460px,90%);
+    background:#101d2e;
+    border:1px solid #293f59;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.final-money{
+    color:#00df82;
+    font-size:30px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.restart{
+    margin-top:18px;
+    border:0;
+    background:#00d982;
+    padding:12px 25px;
+    border-radius:9px;
+    font-weight:bold;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .main{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .country-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .stock{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stock .trade{
+        width:100%;
+    }
+
+    .input-row{
+        flex-wrap:wrap;
+    }
+
+    input{
+        flex-basis:100%;
+    }
+
+    .action{
+        flex:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+<div class="logo">
+
+<div class="logo-icon">🌍</div>
+
+<div>
+<h1>Global Investor</h1>
+<p>Jeopolitik • Şirketler • Piyasalar</p>
+</div>
+
+</div>
+
+<div class="round">
+Tur <b id="round">1</b> / 10
+</div>
+
+</header>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat">
+<div class="stat-title">Nakit</div>
+<div class="stat-value" id="cash">₺100.000</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Portföy</div>
+<div class="stat-value" id="portfolioValue">₺0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Toplam Varlık</div>
+<div class="stat-value" id="totalValue">₺100.000</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Kâr / Zarar</div>
+<div class="stat-value green" id="profit">₺0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Küresel Risk</div>
+<div class="stat-value red" id="risk">%45</div>
+</div>
+
+</section>
+
+
+<div class="main">
+
+
+<!-- SOL -->
+
+<div>
+
+
+<!-- ÜLKELER -->
+
+<section class="panel">
+
+<div class="title">
+
+<h2>🌎 Ülkeler</h2>
+
+<span class="blue">Piyasa Haritası</span>
+
+</div>
+
+<div class="country-grid" id="countries"></div>
+
+</section>
+
+
+<!-- KRİZ -->
+
+<section class="panel">
+
+<div class="title">
+
+<h2>⚠️ Küresel Gündem</h2>
+
+<span class="red" id="riskText">
+RİSKLİ
+</span>
+
+</div>
+
+<div id="crisis"></div>
+
+</section>
+
+
+<!-- ŞİRKETLER -->
+
+<section class="panel">
+
+<div class="title">
+
+<h2 id="marketTitle">📈 ABD Şirketleri</h2>
+
+</div>
+
+<div class="filter" id="filters"></div>
+
+<br>
+
+<div class="stock-list" id="stocks"></div>
+
+</section>
+
+
+<!-- GRAFİK -->
+
+<section class="panel">
+
+<div class="title">
+
+<div>
+
+<h2 id="chartTitle">NVIDIA</h2>
+
+<div class="stock-code" id="chartCode">
+NVDA • ABD • Teknoloji
+</div>
+
+</div>
+
+<div id="chartPrice">
+$208
+</div>
+
+</div>
+
+<div class="chart">
+<canvas id="chart"></canvas>
+</div>
+
+
+<div class="trade-box">
+
+<div class="selected">
+
+<div>
+
+<b id="selectedName">
+NVIDIA
+</b>
+
+<div class="stock-code" id="selectedCode">
+NVDA
+</div>
+
+</div>
+
+<div class="selected-price" id="selectedPrice">
+$208
+</div>
+
+</div>
+
+
+<div class="buy-info">
+
+💰 Paranla maksimum
+
+<b class="green">
+<span id="maxShares">480</span> adet
+</b>
+
+alabilirsin.
+
+<br>
+
+Maksimum işlem:
+<b id="maxCost">$99.840</b>
+
+</div>
+
+
+<div class="input-row">
+
+<input
+id="quantity"
+type="number"
+min="1"
+value="10"
+placeholder="Adet">
+
+<button
+class="action buy"
+onclick="buyStock()">
+AL
+</button>
+
+<button
+class="action sell"
+onclick="sellStock()">
+SAT
+</button>
+
+</div>
+
+<button
+class="max"
+onclick="maxBuy()">
+
+💰 Paramın yettiği kadar al
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- SAĞ -->
+
+<div>
+
+
+<!-- HABERLER -->
+
+<section class="panel">
+
+<div class="title">
+
+<h2>📰 Haber Akışı</h2>
+
+<span class="yellow">Analiz et</span>
+
+</div>
+
+<div class="news-list" id="news"></div>
+
+</section>
+
+
+<!-- PORTFÖY -->
+
+<section class="panel">
+
+<div class="title">
+
+<h2>💼 Portföyüm</h2>
+
+</div>
+
+<div class="portfolio" id="portfolio"></div>
+
+</section>
+
+
+<div class="status" id="status">
+
+🧠 Haberleri oku, şirketleri analiz et ve kararını ver.
+
+</div>
+
+
+<button class="next" onclick="nextRound()">
+
+⏭️ Piyasayı İlerle
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- GAME OVER -->
+
+<div class="modal" id="gameOver">
+
+<div class="modal-box">
+
+<h2>🏆 Oyun Bitti</h2>
+
+<p style="color:#8190a5;margin-top:8px">
+10 tur sonunda portföyün
+</p>
+
+<div class="final-money" id="finalMoney"></div>
+
+<p id="finalResult"></p>
+
+<button class="restart" onclick="location.reload()">
+Tekrar Oyna
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   TEMEL
+===================================================== */
+
+const STARTING_MONEY = 100000;
+
+let cash = STARTING_MONEY;
+let round = 1;
+let selectedStock = 0;
+let selectedCountry = "ABD";
+
+let currentCrisis = null;
+let currentNews = [];
+
+
+/* =====================================================
+   ÜLKELER
+===================================================== */
+
+const countries = [
+
+{
+    name:"ABD",
+    flag:"🇺🇸",
+    info:"Teknoloji • Finans",
+    currency:"$"
+},
+
+{
+    name:"Çin",
+    flag:"🇨🇳",
+    info:"Teknoloji • Otomotiv",
+    currency:"$"
+},
+
+{
+    name:"Japonya",
+    flag:"🇯🇵",
+    info:"Otomotiv • Teknoloji",
+    currency:"$"
+},
+
+{
+    name:"G.Kore",
+    flag:"🇰🇷",
+    info:"Çip • Elektronik",
+    currency:"₩"
+},
+
+{
+    name:"Tayvan",
+    flag:"🇹🇼",
+    info:"Yarı iletken",
+    currency:"$"
+},
+
+{
+    name:"Almanya",
+    flag:"🇩🇪",
+    info:"Otomotiv • Sanayi",
+    currency:"€"
+},
+
+{
+    name:"İngiltere",
+    flag:"🇬🇧",
+    info:"Finans • Enerji",
+    currency:"£"
+},
+
+{
+    name:"Fransa",
+    flag:"🇫🇷",
+    info:"Lüks • Havacılık",
+    currency:"€"
+},
+
+{
+    name:"S.Arabistan",
+    flag:"🇸🇦",
+    info:"Petrol • Finans",
+    currency:"$"
+},
+
+{
+    name:"Türkiye",
+    flag:"🇹🇷",
+    info:"Sanayi • Bankacılık",
+    currency:"₺"
+}
+
+];
+
+
+/* =====================================================
+   ŞİRKETLER
+===================================================== */
+
+const stocks = [
+
+/* ABD */
+
+{
+    name:"NVIDIA",
+    code:"NVDA",
+    country:"ABD",
+    sector:"Çip / AI",
+    price:208,
+    history:[208],
+    owned:0,
+    avg:0,
+    icon:"🟢"
+},
+
+{
+    name:"Apple",
+    code:"AAPL",
+    country:"ABD",
+    sector:"Teknoloji",
+    price:321,
+    history:[321],
+    owned:0,
+    avg:0,
+    icon:"🍎"
+},
+
+{
+    name:"Microsoft",
+    code:"MSFT",
+    country:"ABD",
+    sector:"Yazılım",
+    price:505,
+    history:[505],
+    owned:0,
+    avg:0,
+    icon:"🪟"
+},
+
+{
+    name:"JPMorgan",
+    code:"JPM",
+    country:"ABD",
+    sector:"Bankacılık",
+    price:315,
+    history:[315],
+    owned:0,
+    avg:0,
+    icon:"🏦"
+},
+
+
+/* ÇİN */
+
+{
+    name:"Tencent",
+    code:"0700",
+    country:"Çin",
+    sector:"Teknoloji",
+    price:72,
+    history:[72],
+    owned:0,
+    avg:0,
+    icon:"💬"
+},
+
+{
+    name:"Alibaba",
+    code:"BABA",
+    country:"Çin",
+    sector:"E-Ticaret",
+    price:118,
+    history:[118],
+    owned:0,
+    avg:0,
+    icon:"🛒"
+},
+
+{
+    name:"BYD",
+    code:"1211",
+    country:"Çin",
+    sector:"Otomotiv",
+    price:142,
+    history:[142],
+    owned:0,
+    avg:0,
+    icon:"🚗"
+},
+
+
+/* JAPONYA */
+
+{
+    name:"Toyota",
+    code:"7203",
+    country:"Japonya",
+    sector:"Otomotiv",
+    price:188,
+    history:[188],
+    owned:0,
+    avg:0,
+    icon:"🚘"
+},
+
+{
+    name:"Sony",
+    code:"6758",
+    country:"Japonya",
+    sector:"Elektronik",
+    price:168,
+    history:[168],
+    owned:0,
+    avg:0,
+    icon:"🎮"
+},
+
+{
+    name:"SoftBank",
+    code:"9984",
+    country:"Japonya",
+    sector:"Teknoloji",
+    price:76,
+    history:[76],
+    owned:0,
+    avg:0,
+    icon:"📡"
+},
+
+
+/* GÜNEY KORE */
+
+{
+    name:"Samsung Electronics",
+    code:"005930",
+    country:"G.Kore",
+    sector:"Elektronik / Çip",
+    price:154,
+    history:[154],
+    owned:0,
+    avg:0,
+    icon:"📱"
+},
+
+{
+    name:"SK Hynix",
+    code:"000660",
+    country:"G.Kore",
+    sector:"Bellek Çipleri",
+    price:242,
+    history:[242],
+    owned:0,
+    avg:0,
+    icon:"💾"
+},
+
+
+/* TAYVAN */
+
+{
+    name:"TSMC",
+    code:"TSM",
+    country:"Tayvan",
+    sector:"Yarı İletken",
+    price:415,
+    history:[415],
+    owned:0,
+    avg:0,
+    icon:"🔬"
+},
+
+
+/* ALMANYA */
+
+{
+    name:"SAP",
+    code:"SAP",
+    country:"Almanya",
+    sector:"Yazılım",
+    price:275,
+    history:[275],
+    owned:0,
+    avg:0,
+    icon:"💻"
+},
+
+{
+    name:"Siemens",
+    code:"SIE",
+    country:"Almanya",
+    sector:"Sanayi",
+    price:245,
+    history:[245],
+    owned:0,
+    avg:0,
+    icon:"⚙️"
+},
+
+{
+    name:"Mercedes-Benz",
+    code:"MBG",
+    country:"Almanya",
+    sector:"Otomotiv",
+    price:72,
+    history:[72],
+    owned:0,
+    avg:0,
+    icon:"🚘"
+},
+
+
+/* İNGİLTERE */
+
+{
+    name:"Shell",
+    code:"SHEL",
+    country:"İngiltere",
+    sector:"Enerji",
+    price:84,
+    history:[84],
+    owned:0,
+    avg:0,
+    icon:"🛢️"
+},
+
+{
+    name:"HSBC",
+    code:"HSBA",
+    country:"İngiltere",
+    sector:"Bankacılık",
+    price:13,
+    history:[13],
+    owned:0,
+    avg:0,
+    icon:"🏦"
+},
+
+
+/* FRANSA */
+
+{
+    name:"LVMH",
+    code:"MC",
+    country:"Fransa",
+    sector:"Lüks",
+    price:620,
+    history:[620],
+    owned:0,
+    avg:0,
+    icon:"💎"
+},
+
+{
+    name:"Airbus",
+    code:"AIR",
+    country:"Fransa",
+    sector:"Havacılık",
+    price:195,
+    history:[195],
+    owned:0,
+    avg:0,
+    icon:"✈️"
+},
+
+
+/* SUUDİ ARABİSTAN */
+
+{
+    name:"Saudi Aramco",
+    code:"2222",
+    country:"S.Arabistan",
+    sector:"Petrol",
+    price:27,
+    history:[27],
+    owned:0,
+    avg:0,
+    icon:"🛢️"
+},
+
+{
+    name:"STC",
+    code:"7010",
+    country:"S.Arabistan",
+    sector:"Telekom",
+    price:41,
+    history:[41],
+    owned:0,
+    avg:0,
+    icon:"📡"
+},
+
+
+/* TÜRKİYE */
+
+{
+    name:"Türk Hava Yolları",
+    code:"THYAO",
+    country:"Türkiye",
+    sector:"Havacılık",
+    price:348,
+    history:[348],
+    owned:0,
+    avg:0,
+    icon:"✈️"
+},
+
+{
+    name:"ASELSAN",
+    code:"ASELS",
+    country:"Türkiye",
+    sector:"Savunma",
+    price:185,
+    history:[185],
+    owned:0,
+    avg:0,
+    icon:"🛡️"
+},
+
+{
+    name:"Koç Holding",
+    code:"KCHOL",
+    country:"Türkiye",
+    sector:"Holding",
+    price:198,
+    history:[198],
+    owned:0,
+    avg:0,
+    icon:"🏢"
+},
+
+{
+    name:"Ford Otosan",
+    code:"FROTO",
+    country:"Türkiye",
+    sector:"Otomotiv",
+    price:925,
+    history:[925],
+    owned:0,
+    avg:0,
+    icon:"🚗"
+},
+
+{
+    name:"BİM",
+    code:"BIMAS",
+    country:"Türkiye",
+    sector:"Perakende",
+    price:615,
+    history:[615],
+    owned:0,
+    avg:0,
+    icon:"🛒"
+},
+
+{
+    name:"Tüpraş",
+    code:"TUPRS",
+    country:"Türkiye",
+    sector:"Enerji",
+    price:168,
+    history:[168],
+    owned:0,
+    avg:0,
+    icon:"🛢️"
+},
+
+{
+    name:"Turkcell",
+    code:"TCELL",
+    country:"Türkiye",
+    sector:"Telekom",
+    price:142,
+    history:[142],
+    owned:0,
+    avg:0,
+    icon:"📱"
+}
+
+];
+
+
+/* =====================================================
+   KRİZLER
+===================================================== */
+
+const crises = [
+
+{
+    title:"🇺🇸 ABD – 🇨🇳 Çin Ticaret Gerilimi",
+    text:"İki ekonomi arasında yeni gümrük vergileri ve teknoloji ihracatı konusunda anlaşmazlık büyüyor.",
+    risk:82,
+    effects:["Çip","Teknoloji","Otomotiv","Ticaret"],
+    sectors:["Çip / AI","Teknoloji","Elektronik / Çip"]
+},
+
+{
+    title:"🇹🇼 Tayvan Boğazı Gerilimi",
+    text:"Tayvan çevresindeki askeri hareketlilik küresel yarı iletken tedarik zinciri hakkında endişe yaratıyor.",
+    risk:91,
+    effects:["TSMC","Çip","Elektronik","Teknoloji"],
+    sectors:["Yarı İletken","Çip / AI","Bellek Çipleri"]
+},
+
+{
+    title:"🛢️ Orta Doğu Petrol Krizi",
+    text:"Bölgedeki gerilim nedeniyle petrol arzında kesinti yaşanabileceği endişesi oluştu.",
+    risk:78,
+    effects:["Petrol","Enerji","Havacılık"],
+    sectors:["Petrol","Enerji","Havacılık"]
+},
+
+{
+    title:"🇪🇺 Avrupa Sanayi Daralması",
+    text:"Avrupa'da sanayi üretimi beklentilerin altında kalırken otomotiv ve makine sektörlerinde baskı artıyor.",
+    risk:64,
+    effects:["Otomotiv","Sanayi","Euro"],
+    sectors:["Otomotiv","Sanayi"]
+},
+
+{
+    title:"🌍 Küresel Finansal Şok",
+    text:"Büyük ekonomilerde büyüme tahminlerinin düşürülmesi küresel piyasalarda riskten kaçışı artırıyor.",
+    risk:87,
+    effects:["Bankalar","Teknoloji","Tüketim"],
+    sectors:["Bankacılık","Teknoloji","Perakende"]
+},
+
+{
+    title:"🕊️ Büyük Ticaret Anlaşması",
+    text:"Büyük ekonomiler arasında beklenmedik bir ticaret anlaşmasına ilişkin olumlu sinyaller geldi.",
+    risk:25,
+    effects:["Ticaret","Otomotiv","Teknoloji"],
+    sectors:["Otomotiv","Teknoloji","Elektronik / Çip"]
+},
+
+{
+    title:"🇹🇷 Türkiye Savunma İhracatı Hamlesi",
+    text:"Türkiye'nin savunma sanayisinde yeni uluslararası anlaşmalar yapabileceğine yönelik güçlü beklentiler oluştu.",
+    risk:38,
+    effects:["Savunma","İhracat","Türkiye"],
+    sectors:["Savunma"]
+}
+
+];
+
+
+/* =====================================================
+   HABERLER
+===================================================== */
+
+const newsPool = [
+
+{
+    type:"RESMÎ",
+    title:"NVIDIA yeni yapay zekâ çipi tanıttı",
+    source:"NVIDIA",
+    target:"NVIDIA",
+    confidence:94,
+    direction:1,
+    text:"Yeni nesil yapay zekâ hızlandırıcısının veri merkezi pazarında güçlü talep görebileceği açıklandı."
+},
+
+{
+    type:"SPEKÜLASYON",
+    title:"Apple'ın yeni üretim yatırımı yapacağı iddia edildi",
+    source:"Piyasa kaynakları",
+    target:"Apple",
+    confidence:43,
+    direction:1,
+    text:"Şirketin Asya dışındaki üretim kapasitesini artırabileceği iddia ediliyor."
+},
+
+{
+    type:"RESMÎ",
+    title:"Toyota elektrikli araç yatırımını artırıyor",
+    source:"Toyota",
+    target:"Toyota",
+    confidence:91,
+    direction:1,
+    text:"Şirket elektrikli araç ve batarya yatırımlarında yeni harcama planı açıkladı."
+},
+
+{
+    type:"SÖYLENTİ",
+    title:"TSMC için yeni sipariş dalgası konuşuluyor",
+    source:"Piyasa kaynakları",
+    target:"TSMC",
+    confidence:51,
+    direction:1,
+    text:"Yapay zekâ şirketlerinden gelen siparişlerin beklentilerin üzerine çıkabileceği iddia ediliyor."
+},
+
+{
+    type:"RESMÎ",
+    title:"ASELSAN yeni savunma anlaşması açıkladı",
+    source:"Şirket açıklaması",
+    target:"ASELSAN",
+    confidence:96,
+    direction:1,
+    text:"Yeni ihracat sözleşmesinin şirket gelirlerine olumlu katkı yapması bekleniyor."
+},
+
+{
+    type:"SPEKÜLASYON",
+    title:"THY'nin yeni uzun menzilli hatlara hazırlanabileceği konuşuluyor",
+    source:"Sektör kaynakları",
+    target:"Türk Hava Yolları",
+    confidence:46,
+    direction:1,
+    text:"Yeni uçuş noktalarının şirketin yolcu kapasitesini artırabileceği iddia ediliyor."
+},
+
+{
+    type:"RESMÎ",
+    title:"Tüpraş kapasite yatırımı planlıyor",
+    source:"Şirket açıklaması",
+    target:"Tüpraş",
+    confidence:89,
+    direction:1,
+    text:"Rafineri verimliliğini artırmaya yönelik yatırım planı açıklandı."
+},
+
+{
+    type:"SÖYLENTİ",
+    title:"BYD yeni ihracat anlaşması yapabilir",
+    source:"Piyasa kaynakları",
+    target:"BYD",
+    confidence:47,
+    direction:1,
+    text:"Şirketin Avrupa pazarındaki satışlarını genişletecek yeni bir anlaşma üzerinde çalıştığı iddia ediliyor."
+},
+
+{
+    type:"RESMÎ",
+    title:"Samsung bellek çiplerinde kapasite artırıyor",
+    source:"Samsung",
+    target:"Samsung Electronics",
+    confidence:95,
+    direction:1,
+    text:"Yapay zekâ sunucularından gelen yüksek talep nedeniyle üretim kapasitesinin artırılacağı açıklandı."
+},
+
+{
+    type:"SPEKÜLASYON",
+    title:"LVMH'de Çinli tüketici talebi zayıflayabilir",
+    source:"Analist görüşleri",
+    target:"LVMH",
+    confidence:57,
+    direction:-1,
+    text:"Lüks tüketim sektöründe Asya talebinin yavaşlayabileceği değerlendiriliyor."
+},
+
+{
+    type:"RESMÎ",
+    title:"Shell petrol yatırımlarını yeniden değerlendiriyor",
+    source:"Shell",
+    target:"Shell",
+    confidence:90,
+    direction:1,
+    text:"Petrol fiyatlarındaki değişim nedeniyle yatırım planlarının güncelleneceği açıklandı."
+},
+
+{
+    type:"SÖYLENTİ",
+    title:"Koç Holding'de yeni yatırım beklentisi",
+    source:"Piyasa kaynakları",
+    target:"Koç Holding",
+    confidence:41,
+    direction:1,
+    text:"Holdingin yeni bir sanayi yatırımına hazırlanabileceği konuşuluyor."
+}
+
+];
+
+
+/* =====================================================
+   YARDIMCI
+===================================================== */
+
+function money(value){
+
+    return value.toLocaleString(
+        "tr-TR",
+        {
+            style:"currency",
+            currency:"TRY",
+            maximumFractionDigits:0
+        }
+    );
+
+}
+
+
+/*
+    Oyun fiyatları farklı para birimlerini
+    temsil ediyor. Kullanıcıya sade olması
+    için portföy hesabında sanal TL
+    değerleri kullanıyoruz.
+*/
+
+function getVisibleStocks(){
+
+    return stocks.filter(
+        s => s.country === selectedCountry
+    );
+
+}
+
+
+/* =====================================================
+   ÜLKE RENDER
+===================================================== */
+
+function renderCountries(){
+
+    const box =
+        document.getElementById("countries");
+
+    box.innerHTML="";
+
+    countries.forEach(c=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "country "+
+            (selectedCountry===c.name
+                ?"active":"");
+
+        div.onclick=()=>{
+
+            selectedCountry=c.name;
+
+            selectedStock =
+                stocks.findIndex(
+                    s=>s.country===c.name
+                );
+
+            update();
+
+        };
+
+        div.innerHTML=`
+
+            <div class="flag">
+                ${c.flag}
+            </div>
+
+            <div class="country-name">
+                ${c.name}
+            </div>
+
+            <div class="country-info">
+                ${c.info}
+            </div>
+
+        `;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   FİLTRE
+===================================================== */
+
+function renderFilters(){
+
+    const box =
+        document.getElementById("filters");
+
+    box.innerHTML="";
+
+    countries.forEach(c=>{
+
+        const button =
+            document.createElement("button");
+
+        button.textContent =
+            c.flag+" "+c.name;
+
+        button.className =
+            selectedCountry===c.name
+                ?"active":"";
+
+        button.onclick=()=>{
+
+            selectedCountry=c.name;
+
+            selectedStock =
+                stocks.findIndex(
+                    s=>s.country===c.name
+                );
+
+            update();
+
+        };
+
+        box.appendChild(button);
+
+    });
+
+}
+
+
+/* =====================================================
+   KRİZ
+===================================================== */
+
+function generateCrisis(){
+
+    currentCrisis =
+        crises[
+            Math.floor(
+                Math.random()*crises.length
+            )
+        ];
+
+    document.getElementById("risk")
+        .textContent=
+        "%"+currentCrisis.risk;
+
+    document.getElementById("riskText")
+        .textContent=
+        currentCrisis.risk>=75
+        ?"ÇOK YÜKSEK"
+        :
+        currentCrisis.risk>=50
+        ?"YÜKSEK"
+        :"DÜŞÜK";
+
+    document.getElementById("crisis")
+        .innerHTML=`
+
+        <div class="crisis">
+
+            <div class="crisis-top">
+
+                <span class="tag">
+                    🌍 JEOPOLİTİK GELİŞME
+                </span>
+
+                <span class="risk">
+                    RİSK %${currentCrisis.risk}
+                </span>
+
+            </div>
+
+            <h3>
+                ${currentCrisis.title}
+            </h3>
+
+            <p>
+                ${currentCrisis.text}
+            </p>
+
+            <div class="affected">
+
+                ${currentCrisis.effects.map(
+                    x=>`<span>${x}</span>`
+                ).join("")}
+
+            </div>
+
+        </div>
+
+        `;
+
+}
+
+
+/* =====================================================
+   HABER ÜRET
+===================================================== */
+
+function generateNews(){
+
+    currentNews=[];
+
+    const box =
+        document.getElementById("news");
+
+    box.innerHTML="";
+
+
+    /* Kriz haberi */
+
+    currentNews.push({
+
+        type:"KRİZ",
+        title:currentCrisis.title,
+        source:"Global News Network",
+        target:null,
+        confidence:currentCrisis.risk,
+        direction:
+            currentCrisis.risk>70?-1:1,
+        text:currentCrisis.text,
+        crisis:true
+
+    });
+
+
+    /*
+       3 rastgele şirket haberi
+    */
+
+    let pool=[...newsPool];
+
+    for(let i=0;i<3;i++){
+
+        const index=
+            Math.floor(
+                Math.random()*pool.length
+            );
+
+        currentNews.push(
+            pool.splice(index,1)[0]
+        );
+
+    }
+
+
+    currentNews.forEach(renderNews);
+
+}
+
+
+/* =====================================================
+   HABER RENDER
+===================================================== */
+
+function renderNews(n){
+
+    const div =
+        document.createElement("div");
+
+    let cls="";
+
+    if(n.crisis)
+        cls="crisis";
+
+    else if(
+        n.type==="SPEKÜLASYON" ||
+        n.type==="SÖYLENTİ"
+    )
+        cls="spec";
+
+
+    else
+        cls="company";
+
+
+    div.className="news "+cls;
+
+    div.innerHTML=`
+
+        <div class="news-head">
+
+            <span class="tag">
+                ${n.type}
+            </span>
+
+            <span class="news-source">
+                ${n.source}
+            </span>
+
+        </div>
+
+        <h3>
+            ${n.title}
+        </h3>
+
+        <p>
+            ${n.text}
+        </p>
+
+        <div class="news-bottom">
+
+            <span class="yellow">
+                Güvenilirlik %${n.confidence}
+            </span>
+
+            <span>
+                ${
+                    n.target ||
+                    "Küresel Piyasa"
+                }
+            </span>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById("news")
+        .appendChild(div);
+
+}
+
+
+/* =====================================================
+   HİSSELER
+===================================================== */
+
+function renderStocks(){
+
+    const box =
+        document.getElementById("stocks");
+
+    box.innerHTML="";
+
+
+    const list =
+        getVisibleStocks();
+
+
+    document.getElementById("marketTitle")
+        .textContent=
+        "📈 "+
+        selectedCountry+
+        " Şirketleri";
+
+
+    if(list.length===0){
+
+        box.innerHTML=
+        `<div class="empty">
+            Bu ülke için şirket bulunamadı.
+        </div>`;
+
+        return;
+
+    }
+
+
+    list.forEach(s=>{
+
+        const realIndex=
+            stocks.indexOf(s);
+
+        const previous=
+            s.history.length>1
+            ?s.history[
+                s.history.length-2
+            ]
+            :s.price;
+
+        const change=
+            ((s.price-previous)/
+            previous)*100;
+
+
+        const div =
+            document.createElement("div");
+
+        div.className=
+            "stock "+
+            (
+                realIndex===selectedStock
+                ?"active":""
+            );
+
+
+        div.onclick=()=>{
+
+            selectedStock=realIndex;
+
+            update();
+
+        };
+
+
+        div.innerHTML=`
+
+            <div class="stock-company">
+
+                <div class="stock-logo">
+                    ${s.icon}
+                </div>
+
+                <div>
+
+                    <div class="stock-name">
+                        ${s.name}
+                    </div>
+
+                    <div class="stock-code">
+                        ${s.code} • ${s.sector}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="price">
+                ${money(s.price)}
+            </div>
+
+            <div class="
+                change
+                ${change>=0?"green":"red"}
+            ">
+
+                ${change>=0?"+":""}
+                ${change.toFixed(2)}%
+
+            </div>
+
+            <div class="stock-code">
+                ${s.country}
+            </div>
+
+            <button
+                class="trade"
+                onclick="
+                    event.stopPropagation();
+                    selectedStock=${realIndex};
+                    update();
+                ">
+
+                İşlem
+
+            </button>
+
+        `;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   SEÇİLİ
+===================================================== */
+
+function updateSelected(){
+
+    const s =
+        stocks[selectedStock];
+
+    if(!s)return;
+
+
+    document.getElementById("selectedName")
+        .textContent=s.name;
+
+    document.getElementById("selectedCode")
+        .textContent=
+        s.code+
+        " • "+
+        s.country+
+        " • "+
+        s.sector;
+
+    document.getElementById("selectedPrice")
+        .textContent=
+        money(s.price);
+
+    document.getElementById("chartTitle")
+        .textContent=s.name;
+
+    document.getElementById("chartCode")
+        .textContent=
+        s.code+
+        " • "+
+        s.country+
+        " • "+
+        s.sector;
+
+    document.getElementById("chartPrice")
+        .textContent=
+        money(s.price);
+
+
+    const max=
+        Math.floor(
+            cash/s.price
+        );
+
+
+    document.getElementById("maxShares")
+        .textContent=
+        max.toLocaleString("tr-TR");
+
+    document.getElementById("maxCost")
+        .textContent=
+        money(max*s.price);
+
+}
+
+
+/* =====================================================
+   AL
+===================================================== */
+
+function buyStock(){
+
+    const s =
+        stocks[selectedStock];
+
+    const quantity =
+        parseInt(
+            document.getElementById(
+                "quantity"
+            ).value
+        );
+
+
+    if(!quantity || quantity<=0){
+
+        alert(
+            "Geçerli bir adet gir."
+        );
+
+        return;
+
+    }
+
+
+    const cost=
+        quantity*s.price;
+
+
+    if(cost>cash){
+
+        alert(
+            "Yeterli paran yok!\n\n"+
+            "Maksimum "+
+            Math.floor(
+                cash/s.price
+            )+
+            " adet alabilirsin."
+        );
+
+        return;
+
+    }
+
+
+    const oldCost=
+        s.avg*s.owned;
+
+
+    s.owned+=quantity;
+
+    s.avg=
+        (oldCost+cost)/
+        s.owned;
+
+
+    cash-=cost;
+
+
+    document.getElementById("status")
+        .textContent=
+        "📈 "+
+        quantity+
+        " adet "+
+        s.name+
+        " aldın.";
+
+
+    update();
+
+}
+
+
+/* =====================================================
+   SAT
+===================================================== */
+
+function sellStock(){
+
+    const s =
+        stocks[selectedStock];
+
+    const quantity =
+        parseInt(
+            document.getElementById(
+                "quantity"
+            ).value
+        );
+
+
+    if(!quantity || quantity<=0){
+
+        alert(
+            "Geçerli bir adet gir."
+        );
+
+        return;
+
+    }
+
+
+    if(quantity>s.owned){
+
+        alert(
+            "Bu kadar hissen yok."
+        );
+
+        return;
+
+    }
+
+
+    cash+=
+        quantity*s.price;
+
+    s.owned-=quantity;
+
+
+    if(s.owned===0)
+        s.avg=0;
+
+
+    document.getElementById("status")
+        .textContent=
+        "📉 "+
+        quantity+
+        " adet "+
+        s.name+
+        " sattın.";
+
+
+    update();
+
+}
+
+
+/* =====================================================
+   MAX
+===================================================== */
+
+function maxBuy(){
+
+    const s =
+        stocks[selectedStock];
+
+    document.getElementById(
+        "quantity"
+    ).value=
+        Math.floor(
+            cash/s.price
+        );
+
+}
+
+
+/* =====================================================
+   KRİZ ETKİSİ
+===================================================== */
+
+function applyCrisis(){
+
+    const crisis=
+        currentCrisis;
+
+
+    stocks.forEach(s=>{
+
+        let movement=0;
+
+
+        /*
+           Kriz sektörle eşleşiyorsa
+           güçlü etki.
+        */
+
+        if(
+            crisis.sectors
+            .includes(s.sector)
+        ){
+
+            movement+=
+                crisis.risk>=75
+                ?-.07
+                :-.035;
+
+        }
+
+
+        /*
+           Barış / ticaret olumlu kriz
+        */
+
+        if(
+            crisis.risk<40 &&
+            crisis.sectors
+            .includes(s.sector)
+        ){
+
+            movement=+.05;
+
+        }
+
+
+        /*
+           Türkiye savunma haberi
+        */
+
+        if(
+            crisis.title
+                .includes("Türkiye Savunma") &&
+            s.sector==="Savunma"
+        ){
+
+            movement+=.10;
+
+        }
+
+
+        s.price*=
+            1+
+            movement;
+
+    });
+
+}
+
+
+/* =====================================================
+   ŞİRKET HABER ETKİSİ
+===================================================== */
+
+function applyNews(){
+
+    currentNews.forEach(n=>{
+
+        if(n.crisis)return;
+
+
+        const s=
+            stocks.find(
+                x=>x.name===n.target
+            );
+
+
+        if(!s)return;
+
+
+        let movement=
+            n.direction*
+            .045*
+            (.5+n.confidence/100);
+
+
+        /*
+           Spekülasyonlar bazen
+           tamamen ters çıkabilir.
+        */
+
+        if(
+            n.type==="SPEKÜLASYON" ||
+            n.type==="SÖYLENTİ"
+        ){
+
+            if(
+                Math.random()<
+                .35
+            ){
+
+                movement*=-1;
+
+            }
+
+        }
+
+
+        s.price*=
+            1+movement;
+
+    });
+
+}
+
+
+/* =====================================================
+   GENEL PİYASA
+===================================================== */
+
+function marketMovement(){
+
+    stocks.forEach(s=>{
+
+        /*
+           Küçük rastgele hareket
+        */
+
+        const movement=
+            (Math.random()-.48)
+            *.035;
+
+
+        s.price*=
+            1+movement;
+
+
+        s.price=
+            Math.max(
+                1,
+                Math.round(
+                    s.price*100
+                )/100
+            );
+
+
+        s.history.push(
+            s.price
+        );
+
+
+        if(
+            s.history.length>30
+        ){
+
+            s.history.shift();
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   SONRAKİ TUR
+===================================================== */
+
+function nextRound(){
+
+    if(round>=10){
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    /*
+       1.
+       Önce oyuncunun gördüğü
+       haberlerin sonuçları
+    */
+
+    applyCrisis();
+
+    applyNews();
+
+    marketMovement();
+
+
+    /*
+       Fiyatları düzelt
+    */
+
+    stocks.forEach(s=>{
+
+        s.price=
+            Math.max(
+                1,
+                Math.round(
+                    s.price*100
+                )/100
+            );
+
+        s.history.push(
+            s.price
+        );
+
+        if(
+            s.history.length>30
+        )
+            s.history.shift();
+
+    });
+
+
+    round++;
+
+
+    /*
+       Yeni dünya gündemi
+    */
+
+    generateCrisis();
+
+    generateNews();
+
+
+    document.getElementById("status")
+        .textContent=
+        "🌍 Yeni haberler geldi. "+
+        "Piyasayı analiz et ve yatırım kararını ver.";
+
+
+    update();
+
+}
+
+
+/* =====================================================
+   PORTFÖY
+===================================================== */
+
+function renderPortfolio(){
+
+    const box =
+        document.getElementById(
+            "portfolio"
+        );
+
+    box.innerHTML="";
+
+    let has=false;
+
+
+    stocks.forEach(s=>{
+
+        if(s.owned<=0)return;
+
+        has=true;
+
+
+        const value=
+            s.owned*s.price;
+
+
+        const profit=
+            (s.price-s.avg)*
+            s.owned;
+
+
+        const div =
+            document.createElement("div");
+
+        div.className=
+            "portfolio-item";
+
+
+        div.innerHTML=`
+
+            <div class="port-top">
+
+                <b>
+                    ${s.icon}
+                    ${s.name}
+                </b>
+
+                <b>
+                    ${money(value)}
+                </b>
+
+            </div>
+
+            <div class="port-bottom">
+
+                <span>
+                    ${s.owned} adet
+                </span>
+
+                <span>
+                    Ort. ${money(s.avg)}
+                </span>
+
+                <span class="
+                    ${profit>=0
+                    ?"green"
+                    :"red"}
+                ">
+
+                    ${profit>=0?"+":""}
+                    ${money(profit)}
+
+                </span>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+
+    if(!has){
+
+        box.innerHTML=
+        `<div class="empty">
+            Henüz hisse almadın.
+        </div>`;
+
+    }
+
+}
+
+
+/* =====================================================
+   GRAFİK
+===================================================== */
+
+function drawChart(){
+
+    const canvas=
+        document.getElementById(
+            "chart"
+        );
+
+    const ctx=
+        canvas.getContext("2d");
+
+
+    const rect=
+        canvas.getBoundingClientRect();
+
+
+    const dpr=
+        window.devicePixelRatio||1;
+
+
+    canvas.width=
+        rect.width*dpr;
+
+    canvas.height=
+        rect.height*dpr;
+
+
+    ctx.setTransform(
+        dpr,0,0,dpr,0,0
+    );
+
+
+    const w=rect.width;
+    const h=rect.height;
+
+
+    ctx.clearRect(
+        0,0,w,h
+    );
+
+
+    const data=
+        stocks[selectedStock]
+            .history;
+
+
+    if(data.length<2)return;
+
+
+    const min=
+        Math.min(...data);
+
+    const max=
+        Math.max(...data);
+
+    const range=
+        max-min||1;
+
+
+    /* GRID */
+
+    ctx.strokeStyle=
+        "#17283c";
+
+    ctx.lineWidth=1;
+
+
+    for(let i=0;i<5;i++){
+
+        const y=
+            h/4*i;
+
+        ctx.beginPath();
+
+        ctx.moveTo(0,y);
+
+        ctx.lineTo(w,y);
+
+        ctx.stroke();
+
+    }
+
+
+    /* LINE */
+
+    ctx.beginPath();
+
+
+    data.forEach((value,i)=>{
+
+        const x=
+            i/
+            (data.length-1)*
+            w;
+
+
+        const y=
+            h-
+            ((value-min)/range)*
+            (h-30)-15;
+
+
+        if(i===0)
+            ctx.moveTo(x,y);
+
+        else
+            ctx.lineTo(x,y);
+
+    });
+
+
+    ctx.strokeStyle=
+        "#00df82";
+
+    ctx.lineWidth=3;
+
+    ctx.stroke();
+
+}
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+function update(){
+
+    let portfolio=0;
+
+
+    stocks.forEach(s=>{
+
+        portfolio+=
+            s.price*s.owned;
+
+    });
+
+
+    const total=
+        cash+portfolio;
+
+
+    const profit=
+        total-STARTING_MONEY;
+
+
+    document.getElementById("cash")
+        .textContent=
+        money(cash);
+
+
+    document.getElementById("portfolioValue")
+        .textContent=
+        money(portfolio);
+
+
+    document.getElementById("totalValue")
+        .textContent=
+        money(total);
+
+
+    const profitEl=
+        document.getElementById(
+            "profit"
+        );
+
+
+    profitEl.textContent=
+        (profit>=0?"+":"")+
+        money(profit);
+
+
+    profitEl.className=
+        "stat-value "+
+        (
+            profit>=0
+            ?"green"
+            :"red"
+        );
+
+
+    document.getElementById("round")
+        .textContent=round;
+
+
+    renderCountries();
+
+    renderFilters();
+
+    renderStocks();
+
+    renderPortfolio();
+
+    updateSelected();
+
+    drawChart();
+
+}
+
+
+/* =====================================================
+   GAME OVER
+===================================================== */
+
+function finishGame(){
+
+    let portfolio=0;
+
+
+    stocks.forEach(s=>{
+
+        portfolio+=
+            s.price*s.owned;
+
+    });
+
+
+    const total=
+        cash+portfolio;
+
+
+    const profit=
+        total-STARTING_MONEY;
+
+
+    document.getElementById(
+        "finalMoney"
+    ).textContent=
+        money(total);
+
+
+    document.getElementById(
+        "finalResult"
+    ).textContent=
+        profit>=0
+        ?
+        "🎉 "+
+        money(profit)+
+        " kâr ettin!"
+        :
+        "📉 "+
+        money(
+            Math.abs(profit)
+        )+
+        " zarar ettin.";
+
+
+    document.getElementById(
+        "gameOver"
+    ).classList.add("show");
+
+}
+
+
+/* =====================================================
+   BAŞLANGIÇ
+===================================================== */
+
+generateCrisis();
+
+generateNews();
+
+update();
+
+
+window.addEventListener(
+    "resize",
+    drawChart
+);
+
+</script>
+
+</body>
+</html>
